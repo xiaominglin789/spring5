@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--  自定义日期转换器对象  -->
+    <bean id="dateConverter" class="com.xiaoming.basic.converter.DateConverter">
+        <property name="pattern" value="yyyy-MM-dd"/>
+    </bean>
+    <!--  类型转换器的注册: 注册我们自定义的日期转换器  -->
+    <bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean">
+        <!--   converters: set<T>     -->
+        <property name="converters">
+            <set>
+                <ref bean="dateConverter"></ref>
+            </set>
+        </property>
+    </bean>
+
+    <bean id="person" class="com.xiaoming.basic.converter.Person">
+        <property name="name" value="猪八戒"/>
+        <property name="birthday" value="2022-01-27"/>
+    </bean>
+</beans>

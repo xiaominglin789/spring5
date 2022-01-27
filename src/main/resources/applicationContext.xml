@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--  id:key, class:value  -->
+    <!--    <bean id="person" class="com.xiaoming.basic.old.Person"></bean>-->
+    <!--    <bean class="com.xiaoming.basic.old.Person"></bean>-->
+    <bean id="person" name="p1,p2,p3" class="com.xiaoming.basic.old.Person">
+        <property name="id" value="111" />
+        <property name="name" value="猪八戒" />
+    </bean>
+    <bean id="person2" class="com.xiaoming.basic.old.Person">
+        <property name="id">
+            <value>123123</value>
+        </property>
+        <property name="name">
+            <value>八戒</value>
+        </property>
+        <!--    String[]    -->
+        <property name="ages">
+            <list>
+                <value>18岁</value>
+                <value>16岁</value>
+                <value>15岁</value>
+            </list>
+        </property>
+        <!--    Set<String>    -->
+        <property name="hobbits">
+            <set>
+                <value>篮球</value>
+                <value>羽毛球</value>
+                <value>乒乓球</value>
+                <value>足球</value>
+            </set>
+        </property>
+        <!--   List<String>     -->
+        <property name="addresses">
+            <list>
+                <value>广州</value>
+                <value>南京</value>
+                <value>南京</value>
+                <value>上海</value>
+            </list>
+        </property>
+        <!--    Map<String, Integer>    -->
+        <property name="scores">
+            <map>
+                <entry>
+                    <key><value>数学</value></key>
+                    <value>149</value>
+                </entry>
+                <entry>
+                    <key><value>语文</value></key>
+                    <value>139</value>
+                </entry>
+                <entry>
+                    <key><value>英语</value></key>
+                    <value>129</value>
+                </entry>
+            </map>
+        </property>
+        <!--     Properties     -->
+        <property name="pops">
+            <props>
+                <prop key="a">11111</prop>
+                <prop key="b">\"120ass\"</prop>
+                <prop key="c">3243242</prop>
+                <prop key="d">223131</prop>
+            </props>
+        </property>
+    </bean>
+    <!--  userDAO  -->
+    <bean id="userDAO" class="com.xiaoming.basic.old.UserDAOImpl"></bean>
+    <!--  UserService  -->
+    <bean id="userService" class="com.xiaoming.basic.old.UserServiceImpl" p:name="猪" p:userDAO-ref="userDAO" />
+    <!--  person  -->
+    <bean id="person5" class="com.xiaoming.basic.old.Person">
+        <property name="userDAO" ref="userDAO" />
+    </bean>
+    <!--  liker  -->
+    <bean id="liker" class="com.xiaoming.basic.base.Liker">
+        <constructor-arg>
+            <value>八戒</value>
+        </constructor-arg>
+        <constructor-arg>
+            <value>123</value>
+        </constructor-arg>
+    </bean>
+    <!--  connection  -->
+    <bean id="conn" class="com.xiaoming.basic.factorybean.ConnectionFactoryBean">
+        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver" />
+        <property name="ulr" value="jdbc:mysql://localhost:3306/cloud_user?useSSL=false" />
+        <property name="username" value="apem789" />
+        <property name="password" value="apem@159.com" />
+    </bean>
+
+    <!-- 实例工厂  -->
+    <bean id="connectionFactory" class="com.xiaoming.basic.factorybean.ConnectionFactory" />
+    <!--  根据 connection-factory-class 生成connetion复杂对象。 -->
+    <bean id="conn2" factory-bean="connectionFactory" factory-method="getConnection"></bean>
+
+    <!--  静态工厂  -->
+    <bean id="conn3" class="com.xiaoming.basic.factorybean.StaticConnectionFactory" factory-method="getConnection" />
+
+    <!--  account scope=singleton 默认值: singleton, 只创建一次对象 -->
+    <bean id="account" scope="singleton" class="com.xiaoming.basic.scope.Account"></bean>
+    <!--  account2 scope=property 每次都创建新对象 -->
+    <bean id="account2" scope="prototype" class="com.xiaoming.basic.scope.Account"></bean>
+
+    <!--  product  -->
+    <bean id="product" scope="singleton" class="com.xiaoming.basic.life.Product" />
+    <bean id="product1" scope="singleton" lazy-init="true" class="com.xiaoming.basic.life.Product" />
+    <bean id="product2" scope="prototype" class="com.xiaoming.basic.life.Product" />
+
+    <!--  product  -->
+    <bean id="product3" init-method="init" class="com.xiaoming.basic.life.Product" p:name="aaaa" />
+    <bean id="production" scope="prototype" destroy-method="myDestroy" class="com.xiaoming.basic.life.Production" />
+</beans>
