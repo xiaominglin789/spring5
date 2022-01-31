@@ -20,10 +20,6 @@ public class Around implements MethodInterceptor {
         // 让原始方法运行
         Object result = methodInvocation.proceed();
 
-        // 之后的额外功能
-        // TODO
-        System.out.println("-----------MethodInterceptor after log-----------");
-
         return result;
     }
 }

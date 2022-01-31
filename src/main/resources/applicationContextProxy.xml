@@ -9,13 +9,21 @@
     <!--  原始功能对象 UserServiceImpl  -->
     <bean id="userService" class="com.xiaoming.basic.proxy.UserServiceImpl"/>
     <!--  额外功能对象-log  -->
-<!--    <bean id="before" class="com.xiaoming.basic.dynamic.Before"/>-->
+    <!-- <bean id="before" class="com.xiaoming.basic.dynamic.Before"/> -->
     <!--  额外功能对象2-log  -->
-<!--    <bean id="before" class="com.xiaoming.basic.dynamic.Before2"/>-->
+    <!-- <bean id="before" class="com.xiaoming.basic.dynamic.Before2"/> -->
     <bean id="around" class="com.xiaoming.basic.dynamic.Around"/>
     <aop:config>
         <!--    切入点：所有方法都作为切入点    -->
-        <aop:pointcut id="pc" expression="execution(* *(..))"/>
+        <!-- <aop:pointcut id="pc" expression="execution(* *(..))"/> -->
+        <!--  限定login方法  -->
+        <!-- <aop:pointcut id="pc" expression="execution(* login(..))"/> -->
+        <!--  限定login(String, String) 2个参数 -->
+        <!-- <aop:pointcut id="pc" expression="execution(* login(String, String))"/> -->
+        <!--  限定login(String, String) 保证第一个参数为String, 其他参数不做限制 -->
+        <!--  <aop:pointcut id="pc" expression="execution(* login(String, ..))"/> -->
+        <!--    精准的切入点限定, 精准到某个类的方法    -->
+        <aop:pointcut id="pc" expression="execution(* com.xiaoming.basic.proxy.UserServiceImpl.login(..))"/>
         <!--    组装    -->
         <aop:advisor advice-ref="around" pointcut-ref="pc"></aop:advisor>
     </aop:config>
