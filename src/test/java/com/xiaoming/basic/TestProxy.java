@@ -55,4 +55,15 @@ public class TestProxy {
          * order的核心功能
          */
     }
+
+    /**
+     * 用于测试: 动态代理 MethodInterceptor
+     */
+    @Test
+    public void test4() {
+        ApplicationContext ctx = new ClassPathXmlApplicationContext("/applicationContextProxy.xml");
+        OrderService orderService = (OrderService) ctx.getBean("orderService");
+
+        orderService.showOrder();
+    }
 }

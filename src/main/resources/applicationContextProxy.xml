@@ -11,11 +11,12 @@
     <!--  额外功能对象-log  -->
 <!--    <bean id="before" class="com.xiaoming.basic.dynamic.Before"/>-->
     <!--  额外功能对象2-log  -->
-    <bean id="before" class="com.xiaoming.basic.dynamic.Before2"/>
+<!--    <bean id="before" class="com.xiaoming.basic.dynamic.Before2"/>-->
+    <bean id="around" class="com.xiaoming.basic.dynamic.Around"/>
     <aop:config>
         <!--    切入点：所有方法都作为切入点    -->
         <aop:pointcut id="pc" expression="execution(* *(..))"/>
         <!--    组装    -->
-        <aop:advisor advice-ref="before" pointcut-ref="pc"></aop:advisor>
+        <aop:advisor advice-ref="around" pointcut-ref="pc"></aop:advisor>
     </aop:config>
 </beans>
