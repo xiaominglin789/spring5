@@ -1,7 +1,10 @@
 package com.xiaoming.basic.proxy;
 
+import com.xiaoming.basic.annotation.Log;
+
 public class UserServiceImpl implements UserService {
 
+    @Log
     @Override
     public void register(User user) {
         // 业务运算+DAO

@@ -21,9 +21,17 @@
         <!--  限定login(String, String) 2个参数 -->
         <!-- <aop:pointcut id="pc" expression="execution(* login(String, String))"/> -->
         <!--  限定login(String, String) 保证第一个参数为String, 其他参数不做限制 -->
-        <!--  <aop:pointcut id="pc" expression="execution(* login(String, ..))"/> -->
+        <!-- <aop:pointcut id="pc" expression="execution(* login(String, ..))"/> -->
         <!--    精准的切入点限定, 精准到某个类的方法    -->
-        <aop:pointcut id="pc" expression="execution(* com.xiaoming.basic.proxy.UserServiceImpl.login(..))"/>
+        <!-- <aop:pointcut id="pc" expression="execution(* com.xiaoming.basic.proxy.UserServiceImpl.login(..))"/> -->
+        <!--    类切入点,特定的类作为切入点(不同包也可以)    -->
+        <!-- <aop:pointcut id="pc" expression="execution(* *..UserServiceImpl.*(..))"/>-->
+        <!--    类切入点,指定包下特定的类作为切入点    -->
+        <!-- <aop:pointcut id="pc" expression="execution(* com.xiaoming.basic.proxy.UserServiceImpl.*(..))"/>-->
+        <!--    类切入点,包切入点, 某个包下的当前包和子包的所有类的所有方法都作为切入点    -->
+        <!-- <aop:pointcut id="pc" expression="execution(* com.xiaoming.basic.proxy..*.*(..))"/>-->
+        <!--    注解切入点    -->
+        <aop:pointcut id="pc" expression="@annotation(com.xiaoming.basic.annotation.Log)"/>
         <!--    组装    -->
         <aop:advisor advice-ref="around" pointcut-ref="pc"></aop:advisor>
     </aop:config>
